@@ -1,0 +1,75 @@
+// 1. การสร้าง Array แบบพื้นฐาน
+const a = ['apple', 2, false];
+	สร้างได้โดยใส่สมาชิกที่ต้องการไว้ในวงเล็บเหลี่ยม []
+	สมาชิกสามารถเป็นได้ทุกชนิดข้อมูล เช่น string, number, boolean, object รวมถึง array อีกชั้นหนึ่ง
+
+// 2. ตรวจสอบความยาวของ Array
+console.log('Length of a:', a.length); // 3
+	ใช้ property .length เพื่อดูจำนวนสมาชิกทั้งหมดในArray
+
+// 3. เข้าถึงสมาชิกใน Array ตามตำแหน่ง (index)
+console.log('First element:', a[0]);          // 'apple'
+console.log('Last element:', a[a.length - 1]); // false
+
+	Array ใช้ index เริ่มนับจาก 0 สามารถเข้าถึงโดยการระบุตำแหน่งตัวที่ต้องการ
+	ตัวอย่าง a[0] คือสมาชิกตัวแรก, a[a.length-1] คือสมาชิกตัวสุดท้ายในอาร์เรย์
+
+// 4. การเพิ่มสมาชิกใน Array ด้วย push()
+a.push({ animal: 'cat' }, ['orange', 3, true]);
+console.log('After push:', a);
+    push() ใช้เพิ่มสมาชิกใหม่เข้าไปที่ท้ายของอาร์เรย์
+	สามารถเพิ่มได้ทีละหลายๆ ตัว และเพิ่มได้ทั้งข้อมูลทั่วไปหรือเป็น object,array ซ้อนกันก็ได้ เหมือนในตัวอย่างข้างต้น
+
+// 5. การวนลูปเพื่อแสดงสมาชิกทั้งหมดใน Array
+for (let i = 0; i < a.length; i++) {
+  console.log(`Element at index ${i}:`, a[i]);
+}
+    ใช้ for loop เพื่อวนผ่านสมาชิกทุกตัวในarray
+	ใช้ index เพื่อเข้าถึงสมาชิกทีละตัวและทำงานกับข้อมูลได้
+    ใช้ i++ ในการเข้าถึงสมาชิกตัวถัดไป
+
+// 6. การลบสมาชิกตัวสุดท้ายใน Array ด้วย pop()
+const popped = a.pop();
+console.log('Popped element:', popped);
+console.log('After pop:', a);
+    pop() จะลบและคืนค่าสมาชิกตัวสุดท้ายในarrayออกมา
+
+// 7. การแปลง String เป็น Array ด้วย Spread Operator (...)
+const b = "hello";
+const bArray = [...b];
+console.log('String to array:', bArray); // ['h', 'e', 'l', 'l', 'o']
+    Spread operator ... สามารถแยก string ให้กลายเป็น array ของตัวอักษรแต่ละตัว
+
+// 8. การสร้าง Array ด้วย new Array()
+const c = new Array();
+const d = new Array(4);           // สร้าง array ความยาว 4 แต่ไม่มีสมาชิกกำหนด
+const e = new Array(1, 'bird', true);
+console.log('Empty array c:', c);
+console.log('Array d with length 4:', d);
+console.log('Array e with elements:', e);
+    สร้างarrayใหม่ด้วย constructor new Array()
+	ถ้าใส่เลขเดียว เช่น new Array(4) จะได้arrayที่มีขนาด 4 ช่อง แต่ยังไม่มีสมาชิก 
+	ถ้าใส่หลายค่า เช่น new Array(1, 'bird', true) จะได้arrayที่มีสมาชิกตามค่าที่ใส่
+
+// 9. การสร้าง Array ด้วย Array.of() และ Array.from()
+const f = Array.of(7);            // สร้าง array ที่มีสมาชิกเดียว คือ 7
+console.log('Array f:', f);
+const g = Array.from(f);           // สร้าง array ใหม่จาก array f
+console.log('Array g (from f):', g);
+	Array.of(value) สร้างarrayที่มีสมาชิกเดียว คือ value ที่ส่งเข้าไป ต่างจาก new Array(7) ที่จะสร้างarrayว่างขนาด 7 ช่อง
+	Array.from() สร้างarrayใหม่จาก iterable หรือ array-like object เช่น array ตัวอื่น หรือ string
+
+// 10. การใช้ Array Destructuring และ Rest parameter
+const [x, y, ...z] = [15, 20, 25, 30, 35];
+console.log('x:', x);             // 15
+console.log('y:', y);             // 20
+console.log('z (rest array):', z); // [25, 30, 35]
+console.log('Type of z:', typeof z); // object (เพราะ z คือ array)
+	การดึงสมาชิกจากarrayมาเก็บในตัวแปรหลายตัวได้พร้อมกัน
+	[x, y, ...z] คือเก็บสมาชิกตัวแรกใน x ตัวที่สองใน y และสมาชิกที่เหลือทั้งหมดใน z (ซึ่งจะเป็นarray)
+	typeof z จะเป็น "object" เพราะใน JavaScript arrayเป็นชนิดข้อมูล object ชนิดหนึ่ง
+
+-----------------------------------------------------------------------------------------------------------------------
+สิ่งที่ฝึกฝนในอาทิตย์นี้คือ นำโจทย์ที่เรียนรู้ในห้องมาทบทวน แยกหัวข้อและจัดรูปแบบให้อ่านง่ายเพื่อทำความเข้าใจ และลองใส่ตัวแปรต่างๆเพื่อทดสอบแต่ละหัวข้อ
+จัดทำคำอธิบายแต่ละหัวข้อเพื่อ เอาไว้ใช้อ่านในอนาคต 
+**มีการใช้ ai เพื่ออธิบายแต่ละหัวข้อเพื่อให้เข้าใจมากขึ้น และนำคำอธิบายจาก AI มาเขียนอธิบายในไฟล์นี้ด้วยความเข้าใจของตัวเอง
