@@ -1,0 +1,120 @@
+/////////Function Declarations////////////
+function doSomething(x) {
+    const y = x + 1;
+    console.log(y);
+}
+console.log(doSomething(97));
+
+         - ใช้ function keyword ตามด้วยชื่อฟังก์ชัน
+         - มี hoisting: สามารถเรียกใช้ฟังก์ชันได้แม้จะประกาศไว้ หลัง การเรียก
+
+/////////Function Expressions////////////
+const dosomething3 = function () {
+    return x + 1;
+}
+
+         - ฟังก์ชันถูกกำหนดเป็น “ค่าของตัวแปร”
+	     - ไม่มี hoisting: ต้องประกาศก่อนค่อยเรียก
+
+/////////Arrow Function Expressions///////
+const dosomething2 = (x) => {
+    return x + 1;
+}
+
+         - Syntax กระชับ เหมาะกับฟังก์ชันสั้น ๆ
+	     - ถ้าโค้ดมีแค่ return เดียว สามารถเขียนแบบย่อได้ (const add1 = x => x + 1;)
+
+////////Passing Functions as Parameters (Higher-Order Functions)////////
+function doSomething4(n1, n2) {
+    const result = n1 + n2;
+    return result;
+}
+function doDo(number){
+    const dd = doSomething4(3, 4) + number;
+    return dd;
+}
+console.log(doDo(18)); // 25
+
+         - ฟังก์ชันสามารถส่งเป็นอาร์กิวเมนต์ของฟังก์ชันอื่นได้
+
+////////Functions Returning Functions////////
+function Test(x) {
+    return x;
+}
+function Test2(x) {
+    return x + 50;
+}
+console.log(Test(Test2)(10)); // 60
+         - ฟังก์ชันสามารถคืนฟังก์ชันอีกตัวได้
+         - ตัวอย่าง Test(Test2) คืนฟังก์ชัน Test2 แล้ว (10) เรียกมันต่อ
+
+////////Using the arguments object////////
+function doSomething5(a, b, c){
+    console.log(arguments.length);
+    console.log(arguments[0]);
+    console.log(arguments[1]);
+    console.log(arguments[2]);
+    console.log(a, b, c);
+}
+console.log(doSomething5(1, 2, 3, 6, 7, 8, 9));
+
+         - arguments เป็น array like object (มี length และ index แต่ไม่มีเมธอด array)
+	     - ใช้ได้เฉพาะฟังก์ชันแบบปกติ (ไม่ใช่ arrow function)
+
+////////Summing with arguments object////////
+function doSomethingSum(){
+    let total = 0;
+    for (let i = 0; i < arguments.length; i++) {
+        total += arguments[i];
+    }
+    return total;
+}
+         - วน loop เพื่อรวมค่าทั้งหมดที่ส่งเข้า
+
+////////Default Parameters////////
+function greet(name = "Guest") {
+    return `Hello, ${name}`;
+}
+console.log(greet());       // Hello, Guest
+console.log(greet("Ann"));  // Hello, Ann
+
+         - ค่าDefault ทำงานเมื่อส่ง undefined หรือไม่ได้ส่งค่า
+	     - ถ้าส่ง null จะถือว่าเป็นค่าที่ส่งเข้ามา ไม่ใช้ Default 
+
+////////Rest Parameters////////
+function sum(...numbers) {
+    return numbers.reduce((total, num) => total + num, 0);
+}
+console.log(sum(1, 2, 3, 4)); // 10
+
+	     - เก็บอาร์กิวเมนต์ที่เหลือทั้งหมดในรูป array จริง
+	     - ต้องเป็นพารามิเตอร์สุดท้ายของฟังก์ชัน
+
+
+////////Spread Parameters////////
+function multiply(a, b, c) {
+    return a * b * c;
+}
+let nums = [2, 3, 4];
+console.log(multiply(...nums)); // 24
+
+	     - กระจายค่าจาก array,object ไปยังอาร์กิวเมนต์ของฟังก์ชัน
+	     - ใช้ร่วมกับ destructuring ได้
+
+////////Destructuring Parameters////////
+function displayFullName({ firstName, lastName }) {
+    console.log(`${firstName} ${lastName}`);
+}
+displayFullName({ firstName: "Somchai", lastName: "Jaidee" });
+
+function addFromArray([x, y]) {
+    return x + y;
+}
+console.log(addFromArray([5, 10])); // 15
+
+         - แตกค่าจาก array หรือ object โดยตรงในพารามิเตอร์
+	     - ลดขั้นตอนการประกาศตัวแปรแยกทีหลัง
+
+-------------------------------------------------------------------------------------------------------------------------------------
+สิ่งที่ได้ทำไปคือ การนำเนื้อหาที่เรียนมาทบทวน และลองเขียน function ในแบบต่างๆ เรียนรู้หน้าที่การทำงานในแต่ละหัวข้อ  พร้อมกับเขียนคำอธิบายกำกับ และลองทำโจทย์อื่นๆ เพื่อให้เข้าใจมาขึ้น
+** มีการใช้ AI ช่วยอธิบายเนื้อหาในแต่ละส่วน          
