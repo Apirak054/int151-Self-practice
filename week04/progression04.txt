@@ -1,0 +1,165 @@
+////////Chapter2-ArrayMethods/////////
+
+//--- Reverse ---//
+const words = ["cat", "dog", "bird"];
+words.reverse();
+console.log(words); // [ 'bird', 'dog', 'cat' ]
+
+		- ทำงาน: กลับลำดับสมาชิกใน array
+		- ลักษณะ: เปลี่ยน array เดิม 
+		- พารามิเตอร์: ไม่มี
+		- คืนค่า: array ที่ถูก reverse แล้ว
+
+//--- Filter ---//
+// Anonymous arrow
+const startBwords = words.filter((word) => word.startsWith("b"));
+
+// Anonymous function expression
+const startBwords1 = words.filter(function(word) {
+  return word.startsWith("b");
+});
+
+// Named arrow
+const checkStartB = (word) => word.startsWith("b");
+const startBwords2 = words.filter(checkStartB);
+
+// Named function declaration
+function checkStartB2(word) {
+  return word.startsWith("b");
+}
+const startBwords3 = words.filter(checkStartB2);
+
+		- ทำงาน: คัดสมาชิกที่ผ่านเงื่อนไข 
+		- คืนค่า: array ใหม่ ไม่เปลี่ยนของเดิม
+
+//--- forEach ---//
+const startCwords = [];
+words.forEach((word) => {
+  if (word.startsWith("c")) {
+    startCwords.push(word);
+  }
+});
+
+		- ทำงาน: เรียกฟังก์ชันที่กำหนดกับสมาชิกทุกตัว
+		- คืนค่า: undefined 
+		- ไม่สามารถหยุด loop ได้กลางทาง
+
+//--- Map ---//
+const employees1 = [
+    { id: "e1001", firstname: "Somchai", lastname: "Jaidee" },
+    { id: "e1002", firstname: "Pornchai", lastname: "Deejai" },
+    { id: "e1005", firstname: "Suda", lastname: "Rakdee" },
+  ];
+  const fullname = employees1.map(e => (e.firstname + " " + e.lastname).toUpperCase());
+
+		- ทำงาน: แปลงสมาชิกแต่ละตัวตาม callback แล้วคืน array ใหม่
+		- ไม่เปลี่ยน array เดิม
+
+//--- Includes ---//   
+const wordjai = employees1
+  .filter(emp =>
+    emp.firstname.toLowerCase().includes("jai") ||
+    emp.lastname.toLowerCase().includes("jai")
+  )
+  .map(emp => emp.firstname + " " + emp.lastname);
+
+  		- ทำงาน: ตรวจว่ามีสมาชิกที่ตรงกับค่าที่กำหนดหรือไม่
+		- case sensitive
+		- คืนค่า: Boolean
+
+//--- Reduce ---//   
+const carts = [
+    { productId: 1002, price: 10, amount: 5 },
+    { productId: 2005, price: 100, amount: 2 },
+    { productId: 5001, price: 5, amount: 4 },
+  ];
+  const netPrice = carts.reduce((total, cart) =>
+    total + (cart.price * cart.amount) * 1.07, 0);
+
+    	- ทำงาน: รวมค่าของ array ให้เป็นค่าเดียว
+		- พารามิเตอร์: callback + ค่าเริ่มต้น 
+		- ใช้ได้ทั้ง sum, max, min, การรวมข้อมูล
+
+//--- Push / Pop / Unshift / Shift ---//
+const nums = [2, 4, 6];
+nums.push(8);         // ต่อท้าย, คืน length ใหม่
+nums.pop();           // เอาท้ายออก, คืนค่าที่เอาออก
+nums.unshift(10);     // เพิ่มหัว, คืน length ใหม่
+nums.shift();         // เอาหัวออก, คืนค่าที่เอาออก
+
+		- push / unshift : เพิ่มสมาชิก
+		- pop / shift : ลบสมาชิก
+		- ทั้งหมด เปลี่ยน array เดิม
+
+//--- Splice ---//
+const words1 = ["apple", "orange", "banana"];
+words1.splice(2, 0, "cherry", "berry");  // แทรก
+words1.splice(2, 1);                     // ลบ
+words1.splice(2, 1, "mango");            // แทนที่
+
+		- ทำงาน: เพิ่ม/ลบ/แทนที่สมาชิกตาม index
+		- เปลี่ยน array เดิม
+		- คืนค่า: array ของสมาชิกที่ถูกลบ
+
+//--- Slice ---//
+console.log(words1.slice(1));      // ตั้งแต่ index 1 จนจบ
+console.log(words1.slice(0, 3));   // index 0 ถึง 2
+console.log(words1.slice(-3));     // 3 ตัวท้าย
+
+		- ทำงาน: คืน array ใหม่ที่เป็นส่วนของ array เดิม
+		- ไม่เปลี่ยน array เดิม
+
+//--- Fill ---//
+const arr = [1, 2, 3, 4];
+arr.fill(0, 2, 4);       // [1, 2, 0, 0]
+arr.fill(5, 1);          // [1, 5, 5, 5]
+arr.fill(6);             // [6, 6, 6, 6]
+
+		- ทำงาน: แทนที่ค่าบางช่วงหรือทั้ง array ด้วยค่าคงที่
+		- เปลี่ยน array เดิม
+
+//--- Find / FindIndex ---//
+const nums2 = [5, 12, 8, 130, 44];
+console.log(nums2.find(n => n > 10));       // 12    
+console.log(nums2.findIndex(n => n > 10));  // 1 
+
+		- find : คืนค่าของสมาชิกแรกที่ตรงเงื่อนไข หรือ undefined
+		- findIndex : คืน index ของสมาชิกแรกที่ตรง หรือ -1
+
+//--- Every / Some ---//
+const nums3 = [1, 30, 39, 29, 10, 13];
+console.log(nums3.every(n => n < 40));  // true
+console.log(nums3.some(n => n < 10));   // true
+
+		- every : true ถ้าทุกตัวตรงเงื่อนไข
+		- some : true ถ้ามีอย่างน้อยหนึ่งตัวตรงเงื่อนไข
+ 
+//--- Sort ---//
+const months = ['March', 'jan', 'feb', 'Dec'];
+months.sort(); // เรียงเป็น string ตาม UTF-16
+
+const numbers = [1, 30, 4, 21, 100000];
+numbers.sort((a, b) => a - b); // เรียงตัวเลขจริง
+
+		- ทำงาน: เรียงลำดับ array เดิม
+		- ต้องระบุ comparator สำหรับตัวเลข/การเรียงเฉพาะ
+
+//--- Concat ---//
+const a1 = ['a', 'b', 'c'];
+const a2 = ['d', 'e', 'f'];
+const merged = a1.concat(a2); // ['a','b','c','d','e','f']
+
+		- ทำงาน: รวมหลาย array
+		- ไม่เปลี่ยน array เดิม
+
+//--- Join ---//
+const elements = ['Fire', 'Air', 'Water'];
+console.log(elements.join());     // Fire,Air,Water
+console.log(elements.join(' '));  // Fire Air Water
+
+		- ทำงาน: รวมสมาชิก array เป็น string
+		- พารามิเตอร์: separator (default = ,)
+
+-------------------------------------------------------------------------------------------------------------------------------------
+สิ่งที่ได้ทำคือ นำโค้ดในคาบเรียนมาทบทวน พร้อมกับเรียนรู้methods ตามในสไลด์เพิ่มเติม       
+** มีการใช้ AI ช่วยอธิบายเนื้อหาในแต่ละส่วน  
